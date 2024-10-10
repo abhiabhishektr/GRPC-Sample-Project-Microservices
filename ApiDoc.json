@@ -1,0 +1,145 @@
+{
+    "apiVersion": "1.0.0",
+    "title": "User Management API",
+    "description": "API for managing users, profiles, and authentication.",
+    "basePath": "/api",
+    "endpoints": [
+      {
+        "path": "/users/register",
+        "method": "POST",
+        "description": "Register a new user.",
+        "request": {
+          "body": {
+            "email": "string (required)",
+            "password": "string (required)",
+            "name": "string (required)"
+          }
+        },
+        "response": {
+          "200": {
+            "description": "User registered successfully.",
+            "body": {
+              "message": "User registered successfully."
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "body": {
+              "error": "string"
+            }
+          }
+        }
+      },
+      {
+        "path": "/users/login",
+        "method": "POST",
+        "description": "Login a user and return a JWT.",
+        "request": {
+          "body": {
+            "email": "string (required)",
+            "password": "string (required)"
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Login successful.",
+            "body": {
+              "token": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid credentials.",
+            "body": {
+              "error": "string"
+            }
+          }
+        }
+      },
+      {
+        "path": "/users/profile",
+        "method": "GET",
+        "description": "Get user profile details.",
+        "request": {
+          "headers": {
+            "Authorization": "Bearer <token> (required)"
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Profile retrieved successfully.",
+            "body": {
+              "name": "string",
+              "age": "integer",
+              "address": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid token.",
+            "body": {
+              "error": "string"
+            }
+          }
+        }
+      },
+      {
+        "path": "/users/profile",
+        "method": "PUT",
+        "description": "Update user profile details.",
+        "request": {
+          "headers": {
+            "Authorization": "Bearer <token> (required)"
+          },
+          "body": {
+            "name": "string (optional)",
+            "age": "integer (optional)",
+            "address": "string (optional)"
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Profile updated successfully.",
+            "body": {
+              "message": "Profile updated successfully."
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "body": {
+              "error": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid token.",
+            "body": {
+              "error": "string"
+            }
+          }
+        }
+      },
+      {
+        "path": "/auth/validate",
+        "method": "POST",
+        "description": "Validate a JWT token.",
+        "request": {
+          "body": {
+            "token": "string (required)"
+          }
+        },
+        "response": {
+          "200": {
+            "description": "Token is valid.",
+            "body": {
+              "message": "Token is valid."
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid token.",
+            "body": {
+              "error": "string"
+            }
+          }
+        }
+      }
+    ]
+  }
+  
